@@ -29,12 +29,19 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtFileName = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtFileName = new System.Windows.Forms.TextBox();
-            this.txtFileContent = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabMeta = new System.Windows.Forms.TabPage();
+            this.tabGameState = new System.Windows.Forms.TabPage();
+            this.txtMeta = new System.Windows.Forms.TextBox();
+            this.txtGameState = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabMeta.SuspendLayout();
+            this.tabGameState.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -48,6 +55,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Browser";
             // 
+            // txtFileName
+            // 
+            this.txtFileName.Location = new System.Drawing.Point(7, 19);
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.ReadOnly = true;
+            this.txtFileName.Size = new System.Drawing.Size(662, 23);
+            this.txtFileName.TabIndex = 2;
+            // 
             // btnBrowse
             // 
             this.btnBrowse.Location = new System.Drawing.Point(675, 19);
@@ -60,7 +75,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.txtFileContent);
+            this.groupBox2.Controls.Add(this.tabControl1);
             this.groupBox2.Location = new System.Drawing.Point(12, 72);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(760, 478);
@@ -68,23 +83,55 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File View";
             // 
-            // txtFileName
+            // tabControl1
             // 
-            this.txtFileName.Location = new System.Drawing.Point(7, 19);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.ReadOnly = true;
-            this.txtFileName.Size = new System.Drawing.Size(662, 23);
-            this.txtFileName.TabIndex = 2;
+            this.tabControl1.Controls.Add(this.tabMeta);
+            this.tabControl1.Controls.Add(this.tabGameState);
+            this.tabControl1.Location = new System.Drawing.Point(7, 22);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(747, 450);
+            this.tabControl1.TabIndex = 1;
             // 
-            // txtFileContent
+            // tabMeta
             // 
-            this.txtFileContent.Location = new System.Drawing.Point(7, 23);
-            this.txtFileContent.Multiline = true;
-            this.txtFileContent.Name = "txtFileContent";
-            this.txtFileContent.ReadOnly = true;
-            this.txtFileContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtFileContent.Size = new System.Drawing.Size(747, 449);
-            this.txtFileContent.TabIndex = 0;
+            this.tabMeta.Controls.Add(this.txtMeta);
+            this.tabMeta.Location = new System.Drawing.Point(4, 24);
+            this.tabMeta.Name = "tabMeta";
+            this.tabMeta.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMeta.Size = new System.Drawing.Size(739, 422);
+            this.tabMeta.TabIndex = 0;
+            this.tabMeta.Text = "Meta";
+            this.tabMeta.UseVisualStyleBackColor = true;
+            // 
+            // tabGameState
+            // 
+            this.tabGameState.Controls.Add(this.txtGameState);
+            this.tabGameState.Location = new System.Drawing.Point(4, 24);
+            this.tabGameState.Name = "tabGameState";
+            this.tabGameState.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGameState.Size = new System.Drawing.Size(739, 422);
+            this.tabGameState.TabIndex = 1;
+            this.tabGameState.Text = "Game State";
+            this.tabGameState.UseVisualStyleBackColor = true;
+            // 
+            // txtMeta
+            // 
+            this.txtMeta.Location = new System.Drawing.Point(7, 7);
+            this.txtMeta.Multiline = true;
+            this.txtMeta.Name = "txtMeta";
+            this.txtMeta.ReadOnly = true;
+            this.txtMeta.Size = new System.Drawing.Size(726, 409);
+            this.txtMeta.TabIndex = 0;
+            // 
+            // txtGameState
+            // 
+            this.txtGameState.Location = new System.Drawing.Point(7, 7);
+            this.txtGameState.Name = "txtGameState";
+            this.txtGameState.ReadOnly = true;
+            this.txtGameState.Size = new System.Drawing.Size(726, 409);
+            this.txtGameState.TabIndex = 0;
+            this.txtGameState.Text = "";
             // 
             // frmMain
             // 
@@ -102,7 +149,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabMeta.ResumeLayout(false);
+            this.tabMeta.PerformLayout();
+            this.tabGameState.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -113,7 +163,11 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtFileName;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtFileContent;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabMeta;
+        private System.Windows.Forms.TextBox txtMeta;
+        private System.Windows.Forms.TabPage tabGameState;
+        private System.Windows.Forms.RichTextBox txtGameState;
     }
 }
 
