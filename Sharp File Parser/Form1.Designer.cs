@@ -50,24 +50,25 @@
             this.groupBox1.Controls.Add(this.btnBrowse);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(760, 53);
+            this.groupBox1.Size = new System.Drawing.Size(760, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Browser";
             // 
             // txtFileName
             // 
+            this.txtFileName.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFileName.Location = new System.Drawing.Point(7, 19);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.ReadOnly = true;
-            this.txtFileName.Size = new System.Drawing.Size(662, 23);
+            this.txtFileName.Size = new System.Drawing.Size(663, 22);
             this.txtFileName.TabIndex = 2;
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(675, 19);
+            this.btnBrowse.Location = new System.Drawing.Point(680, 20);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowse.Size = new System.Drawing.Size(70, 23);
             this.btnBrowse.TabIndex = 1;
             this.btnBrowse.Text = "Browse...";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -106,6 +107,7 @@
             // 
             // txtMeta
             // 
+            this.txtMeta.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMeta.Location = new System.Drawing.Point(7, 7);
             this.txtMeta.Multiline = true;
             this.txtMeta.Name = "txtMeta";

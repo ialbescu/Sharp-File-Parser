@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
@@ -10,7 +11,7 @@ namespace Sharp_File_Parser
     {
         public FrmMain()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private readonly string _baseFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -19,20 +20,57 @@ namespace Sharp_File_Parser
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
-                InitialDirectory = this._baseFolderPath + @"\Paradox Interactive\Stellaris\save games\",
+                InitialDirectory = _baseFolderPath + @"\Paradox Interactive\Stellaris\save games\",
                 Filter = "Stellaris save games (*.sav)|*.sav|All files (*.*)|*.*",
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
-            this.OpenFile(openFileDialog1);
+            OpenFile(openFileDialog1);
         }
 
-        public static string TestRegEx(string text, string keyword)
+        public static string ReadLineByLine(string path)
+        {
+            string myLine = "";
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while (sr.Peek() >= 0)
+                {
+                    myLine += ExtractKeyFromLine(sr.ReadLine()) + Environment.NewLine;
+                }
+            }
+            return myLine;
+        }
+
+        public static string ExtractKeyFromLine(string text)
+        {
+            // Define a regular expression for repeated words.
+            string myKey = "";
+            //string myValue = "";
+
+            // (?<before_equal>\w+)+=(?!{)(?<after_equal>.+)+
+            Regex rx = new Regex(@"(?<before_equal>\w+)+=(?!{)(?<after_equal>.+)+",
+                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture);
+
+            // Find matches.
+            MatchCollection matches = rx.Matches(text);
+
+            // Report on each match.
+            foreach (Match match in matches)
+            {
+                GroupCollection groups = match.Groups;
+                myKey = groups[0].Value.Replace("\"", "");
+                //myValue = groups[1].Value.Replace("\"", "");
+            }
+            return myKey;
+        }
+
+
+
+        public string TestRegEx(string text, string keyword)
         {
             // Define a regular expression for repeated words.
             string value = "";
-            Regex rx = new Regex(@"" + keyword + "=.*", //"version=\""
-                RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex rx = new Regex(@"" + keyword + "=.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             // Find matches.
             MatchCollection matches = rx.Matches(text);
@@ -42,7 +80,6 @@ namespace Sharp_File_Parser
             {
                 GroupCollection groups = match.Groups;
                 value = groups[0].Value.Replace(keyword + "=", "");
-                //value = groups[0].Value.Replace("version=\"", "");
             }
             return value;
         }
@@ -52,7 +89,7 @@ namespace Sharp_File_Parser
             using (ZipArchive zip = ZipFile.Open(fileName, ZipArchiveMode.Read))
                 foreach (ZipArchiveEntry entry in zip.Entries)
                 {
-                    string fileOutput = Path.Combine(this._baseFolderPath, entry.Name + ".txt");
+                    string fileOutput = Path.Combine(_baseFolderPath, entry.Name + ".txt");
                     entry.ExtractToFile(fileOutput, true);
                 }
         }
@@ -64,24 +101,28 @@ namespace Sharp_File_Parser
 
             try
             {
-                string metaPath = this._baseFolderPath + @"\meta.txt";
-                string gamestatePath = this._baseFolderPath + @"\gamestate.txt";
+                string metaPath = _baseFolderPath + @"\meta.txt";
+                string gamestatePath = _baseFolderPath + @"\gamestate.txt";
 
-                this.txtFileName.Text = openFileDialog1.FileName;
-                this.ZipToFile(openFileDialog1.FileName);
+                txtFileName.Text = openFileDialog1.FileName;
+                ZipToFile(openFileDialog1.FileName);
 
-                this.txtMeta.Text += File.ReadAllText(metaPath) + Environment.NewLine;
-                this.txtMeta.SelectionStart = this.txtMeta.Text.Length;
-                this.txtMeta.ScrollToCaret();
+                //this.txtMeta.Text += File.ReadAllText(metaPath) + Environment.NewLine;
+                //this.txtMeta.SelectionStart = this.txtMeta.Text.Length;
+                //this.txtMeta.ScrollToCaret();
 
-                this.txtGameState.Text = File.ReadAllText(gamestatePath) + Environment.NewLine;
-                this.txtGameState.SelectionStart = this.txtGameState.Text.Length;
-                this.txtGameState.ScrollToCaret();
+                //this.txtGameState.Text = File.ReadAllText(gamestatePath) + Environment.NewLine;
+                //this.txtGameState.SelectionStart = this.txtGameState.Text.Length;
+                //this.txtGameState.ScrollToCaret();
 
-                string meta = File.ReadAllText(metaPath);
-                string gamestate = File.ReadAllText(gamestatePath);
+                //string meta = File.ReadAllText(metaPath);
+                //string gamestate = File.ReadAllText(gamestatePath); am comentat linia până terminăm cu meta
 
-                this.txtFileName.Text = TestRegEx(meta, "version");
+
+
+                txtMeta.Text += ReadLineByLine(metaPath) + Environment.NewLine;
+
+
             }
             catch (Exception exception)
             {
