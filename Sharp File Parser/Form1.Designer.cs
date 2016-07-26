@@ -1,6 +1,6 @@
 ﻿namespace Sharp_File_Parser
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -34,8 +34,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMeta = new System.Windows.Forms.TabPage();
-            this.tabGameState = new System.Windows.Forms.TabPage();
             this.txtMeta = new System.Windows.Forms.TextBox();
+            this.tabGameState = new System.Windows.Forms.TabPage();
             this.txtGameState = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -104,6 +104,15 @@
             this.tabMeta.Text = "Meta";
             this.tabMeta.UseVisualStyleBackColor = true;
             // 
+            // txtMeta
+            // 
+            this.txtMeta.Location = new System.Drawing.Point(7, 7);
+            this.txtMeta.Multiline = true;
+            this.txtMeta.Name = "txtMeta";
+            this.txtMeta.ReadOnly = true;
+            this.txtMeta.Size = new System.Drawing.Size(726, 409);
+            this.txtMeta.TabIndex = 0;
+            // 
             // tabGameState
             // 
             this.tabGameState.Controls.Add(this.txtGameState);
@@ -115,15 +124,6 @@
             this.tabGameState.Text = "Game State";
             this.tabGameState.UseVisualStyleBackColor = true;
             // 
-            // txtMeta
-            // 
-            this.txtMeta.Location = new System.Drawing.Point(7, 7);
-            this.txtMeta.Multiline = true;
-            this.txtMeta.Name = "txtMeta";
-            this.txtMeta.ReadOnly = true;
-            this.txtMeta.Size = new System.Drawing.Size(726, 409);
-            this.txtMeta.TabIndex = 0;
-            // 
             // txtGameState
             // 
             this.txtGameState.Location = new System.Drawing.Point(7, 7);
@@ -133,7 +133,7 @@
             this.txtGameState.TabIndex = 0;
             this.txtGameState.Text = "";
             // 
-            // frmMain
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -143,7 +143,7 @@
             this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sharp File Parser";
             this.groupBox1.ResumeLayout(false);
