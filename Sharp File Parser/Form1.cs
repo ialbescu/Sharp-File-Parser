@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Sharp_File_Parser
@@ -16,22 +17,43 @@ namespace Sharp_File_Parser
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            var openFileDialog1 = new OpenFileDialog
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
-                InitialDirectory = this._baseFolderPath + @"\Paradox Interactive\Stellaris\save games\", 
-                Filter = "Stellaris save games (*.sav)|*.sav|All files (*.*)|*.*", 
-                FilterIndex = 1, 
+                InitialDirectory = this._baseFolderPath + @"\Paradox Interactive\Stellaris\save games\",
+                Filter = "Stellaris save games (*.sav)|*.sav|All files (*.*)|*.*",
+                FilterIndex = 1,
                 RestoreDirectory = true
             };
             this.OpenFile(openFileDialog1);
         }
 
+        public static string TestRegEx(string text, string keyword)
+        {
+            // Define a regular expression for repeated words.
+            string value = "";
+            Regex rx = new Regex(@"\b(" + keyword + "=.*)\b",
+                RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            // Find matches.
+            MatchCollection matches = rx.Matches(text);
+
+            // Report on each match.
+            foreach (Match match in matches)
+            {
+                GroupCollection groups = match.Groups;
+                value = groups["word"].Value.Replace("version=", "");
+                //value = groups[0].Value.Replace(keyword + "=\"", "");
+                //value = groups[0].Value.Replace("version=\"", "");
+            }
+            return value;
+        }
+
         public void ZipToFile(string fileName)
         {
-            using (var zip = ZipFile.Open(fileName, ZipArchiveMode.Read))
-                foreach (var entry in zip.Entries)
+            using (ZipArchive zip = ZipFile.Open(fileName, ZipArchiveMode.Read))
+                foreach (ZipArchiveEntry entry in zip.Entries)
                 {
-                    var fileOutput = Path.Combine(this._baseFolderPath, entry.Name + ".txt");
+                    string fileOutput = Path.Combine(this._baseFolderPath, entry.Name + ".txt");
                     entry.ExtractToFile(fileOutput, true);
                 }
         }
@@ -43,8 +65,9 @@ namespace Sharp_File_Parser
 
             try
             {
-                var metaPath = this._baseFolderPath + @"\meta.txt";
-                var gamestatePath = this._baseFolderPath + @"\gamestate.txt";
+                string metaPath = this._baseFolderPath + @"\meta.txt";
+                string gamestatePath = this._baseFolderPath + @"\gamestate.txt";
+
                 this.txtFileName.Text = openFileDialog1.FileName;
                 this.ZipToFile(openFileDialog1.FileName);
 
@@ -55,6 +78,11 @@ namespace Sharp_File_Parser
                 this.txtGameState.Text = File.ReadAllText(gamestatePath) + Environment.NewLine;
                 this.txtGameState.SelectionStart = this.txtGameState.Text.Length;
                 this.txtGameState.ScrollToCaret();
+
+                string meta = File.ReadAllText(metaPath);
+                string gamestate = File.ReadAllText(gamestatePath);
+
+                this.txtFileName.Text = TestRegEx(meta, "version");
             }
             catch (Exception exception)
             {
