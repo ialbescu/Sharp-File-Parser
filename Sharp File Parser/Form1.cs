@@ -31,7 +31,7 @@ namespace Sharp_File_Parser
         {
             // Define a regular expression for repeated words.
             string value = "";
-            Regex rx = new Regex(@"\b(" + keyword + "=.*)\b",
+            Regex rx = new Regex(@"" + keyword + "=.*", //"version=\""
                 RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             // Find matches.
@@ -41,8 +41,7 @@ namespace Sharp_File_Parser
             foreach (Match match in matches)
             {
                 GroupCollection groups = match.Groups;
-                value = groups["word"].Value.Replace("version=", "");
-                //value = groups[0].Value.Replace(keyword + "=\"", "");
+                value = groups[0].Value.Replace(keyword + "=", "");
                 //value = groups[0].Value.Replace("version=\"", "");
             }
             return value;
