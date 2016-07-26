@@ -58,7 +58,7 @@ namespace Sharp_File_Parser
             foreach (Match match in matches)
             {
                 GroupCollection groups = match.Groups;
-                myKey = groups[0].Value.Replace("\"", "");
+                myKey = groups[1].Value.Replace("\"", "");
                 //myValue = groups[1].Value.Replace("\"", "");
             }
             return myKey;
